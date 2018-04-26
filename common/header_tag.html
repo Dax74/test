@@ -1,1 +1,50 @@
+<script type="text/discourse-plugin" version="0.8">
+
+    var $ntb_text = settings.New_like_text,
+      $ntb_title = settings.New_like_title,
+      $ntb_icon = settings.New_like_icon,
+      $ntb_icon_class = ".fa-" + $ntb_icon,
+      $ntb_button_class = "btn btn-default btn btn-icon-text",
+      registerButton('like', attrs => {
+  if (!attrs.showLike) { return; }
+
+  const className = attrs.liked ? 'toggle-like has-like fade-out' : 'toggle-like like';
+
+  const button = {
+    action: 'like',
+    icon: attrs.liked ? '$ntb_icon' : 'd-unliked',
+    className
+  };
+
+  if (attrs.canToggleLike) {
+    button.title = attrs.liked ? 'post.controls.undo_like' : 'post.controls.like';
+  } else if (attrs.liked) {
+    button.title = 'post.controls.has_liked';
+    button.disabled = true;
+  }
+
+  return button;
+});
+
+registerButton('like-count', attrs => {
+  const count = attrs.likeCount;
+
+  if (count > 0) {
+    const title = attrs.liked
+      ? count === 1 ? 'post.has_likes_title_only_you' : 'post.has_likes_title_you'
+      : 'post.has_likes_title';
+      const icon = attrs.yours ? 'heart' : '';
+      const additionalClass = attrs.yours ? 'my-likes' : 'regular-likes';
+
+    return { action: 'toggleWhoLiked',
+      title,
+      className: `like-count highlight-action ${additionalClass}`,
+      contents: count,
+      icon,
+      iconRight: true,
+      titleOptions: {count: attrs.liked ? (count-1) : count }
+    };
+  }
+});
+</script>
 
