@@ -1,4 +1,4 @@
-New_topic_button_icon:
+New_like_button_icon:
   default: "heart"
   description:
-en: Choose an icon for the button. You can use any FontAwesome 4.7 icon name like "music" or "star" without quote marks. 
+    en: Choose an icon for the button. You can use any FontAwesome 4.7 icon name like "music" or "star" without quote marks. 
